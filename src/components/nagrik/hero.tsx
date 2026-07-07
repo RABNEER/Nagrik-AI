@@ -2,7 +2,7 @@
 
 import { useApp } from "@/lib/store";
 import { GOVT_SERVICES } from "@/lib/services-data";
-import { MessageSquare, ShieldCheck, FileText, ArrowRight, ShieldCheck as ShieldCheckIcon, Globe, Lock } from "lucide-react";
+import { MessageSquare, ShieldCheck, FileText, ArrowRight, Globe, Lock } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -108,7 +108,7 @@ export function Hero() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex flex-col gap-3">
               <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-trust/10 text-trust self-start">
-                <ShieldCheckIcon className="w-5 h-5" />
+                <ShieldCheck className="w-5 h-5" />
               </div>
               <h3 className="text-base font-semibold">{t("hero.pillar1_title")}</h3>
               <p className="text-sm text-muted-fg leading-relaxed">

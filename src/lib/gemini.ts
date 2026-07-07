@@ -2,7 +2,7 @@
 // NagrikAI — Gemini (fallback to Groq) Client Wrapper
 // ----------------------------------------------------------------------------
 // Implements multi-model rate-limit and quota fallback logic. Tries Gemini models
-// (2.5 Flash/Pro, 1.5 Flash/Pro) and falls back to Groq models (Llama 3.3, 3.1, Mixtral)
+// (2.5 Flash/Pro, 2.0 Flash/Lite) and falls back to Groq models (Llama 3.3, 3.1, Mixtral)
 // if any API quota or rate limits are exceeded.
 // IMPORTANT: server-side only — never import this in client components.
 // ============================================================================

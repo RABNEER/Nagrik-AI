@@ -22,7 +22,7 @@ const OPTIONS: LangOption[] = [
 
 export function LanguageOverlay() {
   const { lang, setLang } = useApp();
-  const [isOpen] = useState(() => {
+  const [isOpen, setIsOpen] = useState(() => {
     if (typeof window === "undefined") return false;
     const selected = localStorage.getItem("nagrik-lang-selected");
     return !selected;
@@ -34,6 +34,14 @@ export function LanguageOverlay() {
       setLang(savedLang as Lang);
     }
   }, [setLang]);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [setIsOpen]);
 
   const handleSelect = (code: Lang) => {
     setLang(code);

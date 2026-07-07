@@ -26,28 +26,22 @@ export function GrievanceReport() {
   const { t } = useTranslation();
   const lang = useApp((s) => s.lang);
 
+  async function loadGrievances() {
+    try {
+      setLoadingList(true);
+      const res = await fetch("/api/grievance");
+      if (!res.ok) throw new Error("Failed to load grievances");
+      const data = await res.json();
+      setGrievances(data.grievances);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingList(false);
+    }
+  }
+
   useEffect(() => {
-    let ignore = false;
-    fetch("/api/grievance")
-      .then((r) => {
-        if (!r.ok) throw new Error("Failed to load grievances");
-        return r.json();
-      })
-      .then((data) => {
-        if (!ignore) {
-          setGrievances(data.grievances);
-          setLoadingList(false);
-        }
-      })
-      .catch((err) => {
-        if (!ignore) {
-          console.error(err);
-          setLoadingList(false);
-        }
-      });
-    return () => {
-      ignore = true;
-    };
+    void loadGrievances();
   }, []);
 
   async function submit(text?: string) {
@@ -77,7 +71,7 @@ export function GrievanceReport() {
         title: "Grievance Registered",
         description: `Registered ticket: ${data.grievance.ticketId}`,
       });
-      void fetchGrievances();
+      void loadGrievances();
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Unknown error";
       toast({
