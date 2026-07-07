@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// NagrikAI — Grievance tracking model
+// DPDP Act 2023 data-minimization: we intentionally do NOT store Aadhaar
+// numbers, full names with identifiers, or other sensitive PII. Only the
+// fields required for routing + status tracking are persisted.
+model Grievance {
+  id           String   @id @default(cuid())
+  // Short, non-identifying reference shown to the citizen (e.g. NGK-AB12CD)
+  ticketId     String   @unique
+  category     String
+  description  String
+  routedTo     String
+  portal       String
+  contact      String
+  status       String   @default("Pending")
+  location     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
