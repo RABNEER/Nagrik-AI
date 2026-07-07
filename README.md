@@ -1,15 +1,8 @@
 <div align="center">
 
-```
- _   _                   _ _   _    _    ___ 
-| \ | | __ _  __ _ _ __ (_) | / \  |_ _|
-|  \| |/ _` |/ _` | '__|| | |/ _ \  | | 
-| |\  | (_| | (_| | |   | | / ___ \ | | 
-|_| \_|\__,_|\__, |_|   |_|_/_/   \_\___|
-             |___/                        
-```
+# NagrikAI
 
-### 🇮🇳 The AI-Powered Civic Companion for Smart Bharat
+### The AI-Powered Civic Companion for Smart Bharat
 
 **Transparency · Accessibility · Digital Inclusion — for every Indian citizen**
 
@@ -25,11 +18,11 @@ Built for the **"Smart Bharat – AI-Powered Civic Companion"** hackathon challe
 </p>
 
 <p>
-  <a href="#-what-nagrikai-does"><img alt="features" src="https://img.shields.io/badge/-✨_Features-1A1A2E?style=flat-square"></a>
+  <a href="#what-nagrikai-does"><img alt="features" src="https://img.shields.io/badge/-✨_Features-1A1A2E?style=flat-square"></a>
   <a href="#-prompt-engineering--ai-architecture"><img alt="architecture" src="https://img.shields.io/badge/-🧠_AI_Architecture-1A1A2E?style=flat-square"></a>
   <a href="#-quick-start"><img alt="setup" src="https://img.shields.io/badge/-🚀_Quick_Start-1A1A2E?style=flat-square"></a>
   <a href="#-feature-walkthrough"><img alt="walkthrough" src="https://img.shields.io/badge/-📱_Walkthrough-1A1A2E?style=flat-square"></a>
-  <a href="#️-honest-limitations-for-judges"><img alt="limitations" src="https://img.shields.io/badge/-⚠️_Limitations-1A1A2E?style=flat-square"></a>
+  <a href="#honest-limitations-for-judges"><img alt="limitations" src="https://img.shields.io/badge/-⚠️_Limitations-1A1A2E?style=flat-square"></a>
 </p>
 
 *Ask a question. File a complaint. Dodge a scam. All in five Indian languages, in one app.*
@@ -63,7 +56,7 @@ Built for the **"Smart Bharat – AI-Powered Civic Companion"** hackathon challe
 ## 📋 Table of Contents
 
 - [Challenge Alignment](#-challenge-statement-alignment)
-- [What NagrikAI Does](#-what-nagrikai-does)
+- [What NagrikAI Does](#what-nagrikai-does)
 - [NagrikAI vs. a Typical Civic Chatbot](#-nagrikai-vs-a-typical-civic-chatbot)
 - [Tech Stack](#-tech-stack)
 - [System Architecture](#️-system-architecture)
@@ -72,7 +65,7 @@ Built for the **"Smart Bharat – AI-Powered Civic Companion"** hackathon challe
 - [Prompt Engineering & AI Architecture](#-prompt-engineering--ai-architecture)
 - [Feature Walkthrough](#-feature-walkthrough)
 - [Design Language](#-design-language)
-- [Honest Limitations](#️-honest-limitations-for-judges)
+- [Honest Limitations](#honest-limitations-for-judges)
 - [License](#-license)
 
 ---
@@ -100,23 +93,7 @@ Built for the **"Smart Bharat – AI-Powered Civic Companion"** hackathon challe
 
 ---
 
-## 🎯 Challenge Statement Alignment
-
-| Challenge Requirement | NagrikAI Feature | Status |
-|---|---|:---:|
-| Simplify complex government information | AI Chat Companion with grounded dataset | ✅ |
-| Answer citizen queries | Multi-turn conversational AI with voice (Groq Whisper) | ✅ |
-| Recommend relevant public services | Personalized Scheme Finder — demographic-based matching | ✅ |
-| Assist with document requirements | AI Document Analyzer — Vision OCR with issue flagging | ✅ |
-| Track complaints | Grievance Reporting with `NGK-XXXXXX` ticket IDs | ✅ |
-| Provide multilingual support | 5 Indian languages (English, हिंदी, বাংলা, தமிழ், मराठी) | ✅ |
-| Promote transparency | Official `.gov.in` portals surfaced for every query | ✅ |
-| Digital inclusion | Mobile-first UI, voice input, large touch targets | ✅ |
-
----
-
-
-## 🇮🇳 What NagrikAI Does
+## What NagrikAI Does
 
 NagrikAI is a multi-page **Next.js** web application built around six GenAI-powered capabilities that go far beyond a typical FAQ chatbot.
 
@@ -156,7 +133,7 @@ NagrikAI is a multi-page **Next.js** web application built around six GenAI-powe
 |---|---|
 | **Framework** | Next.js 16 (App Router) + TypeScript |
 | **Styling** | Tailwind CSS 4 · shadcn/ui · Lucide icons |
-| **Primary LLM** | Google Gemini API — `gemini-2.5-flash`, `gemini-2.5-pro`, `gemini-2.0-flash` |
+| **Primary LLM** | Google Gemini API — `gemini-2.5-flash`, `gemini-2.5-pro`, `gemini-1.5-flash` |
 | **Fallback LLM + Voice** | Groq API — `llama-3.3-70b`, `mixtral-8x7b`, `whisper-large-v3` |
 | **Database** | Prisma ORM + SQLite (grievance tracking) |
 | **State** | Zustand (view + language persistence) |
@@ -173,7 +150,7 @@ NagrikAI is a multi-page **Next.js** web application built around six GenAI-powe
 
 ```mermaid
 flowchart TB
-    U["👤 Citizen"] -->|text or voice| UI["Next.js Frontend"]
+    U["Citizen"] -->|text or voice| UI["Next.js Frontend"]
     UI -->|voice| STT["🎙️ Groq Whisper v3<br/>Speech → Text"]
     STT --> UI
     UI --> ROUTE{"Intent Router"}
@@ -426,7 +403,7 @@ This is surfaced directly in the UI (*"Privacy-first: DPDP Act 2023 aligned"*) �
 
 ---
 
-## ⚠️ Honest Limitations (for judges)
+## Honest Limitations (for judges)
 
 > [!WARNING]
 > We'd rather be upfront than have you find these first.
@@ -443,7 +420,7 @@ Released under the **MIT License** — built with ❤️ for India.
 
 <div align="center">
 
-### 🇮🇳 NagrikAI
+### NagrikAI
 
 *Making every civic interaction faster, smarter, and safer*
 
