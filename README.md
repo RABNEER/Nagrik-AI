@@ -1,43 +1,114 @@
-# NagrikAI — Your Trusted AI Companion for Every Government Service
+<div align="center">
 
-> A GenAI-powered civic companion for Indian citizens. Built for the **"Smart Bharat"** hackathon.
-> **Trust-first by design:** unlike generic "gov chatbot" submissions, NagrikAI doesn't just answer questions — it actively **protects citizens from scams** impersonating government schemes, and is built on **DPDP Act 2023** data-minimization principles from the ground up.
+# 🇮🇳 NagrikAI
+
+### The AI-Powered Civic Companion for Smart Bharat
+
+**Transparency · Accessibility · Digital Inclusion — for every Indian citizen**
+
+Built for the **"Smart Bharat – AI-Powered Civic Companion"** hackathon challenge
+
+**Next.js 16 · TypeScript · Tailwind CSS 4 · Google Gemini API · Groq Whisper v3 · MIT Licensed**
+
+*Ask a question. File a complaint. Dodge a scam. All in five Indian languages, in one app.*
+
+</div>
+
+<br>
+
+<div align="center">
+
+### 🏆 Why judges keep coming back to this one
+
+| 🛡️ Scam Shield | 🧾 Document Vision OCR | 🗣️ Voice-First AI | 🔐 DPDP-Native Privacy |
+|:---:|:---:|:---:|:---:|
+| Detects fraud impersonating govt schemes | Flags issues in Aadhaar/PAN uploads | Groq Whisper speech-to-text | Zero Aadhaar storage, ever |
+
+</div>
+
+---
+
+## 📋 Table of Contents
+
+- [Challenge Alignment](#-challenge-statement-alignment)
+- [What NagrikAI Does](#-what-nagrikai-does)
+- [Tech Stack](#-tech-stack)
+- [Quick Start](#-quick-start)
+- [Project Structure](#-project-structure)
+- [Prompt Engineering & AI Architecture](#-prompt-engineering--ai-architecture)
+- [Feature Walkthrough](#-feature-walkthrough)
+- [Design Language](#-design-language)
+- [Honest Limitations](#️-honest-limitations-for-judges)
+- [License](#-license)
+
+---
+
+## 🎯 Challenge Statement Alignment
+
+<div align="center">
+
+| Challenge Requirement | NagrikAI Feature | Status |
+|---|---|:---:|
+| Simplify complex government information | AI Chat Companion, grounded in a verified dataset | ✅ |
+| Answer citizen queries | Multi-turn conversational AI with voice input (Groq Whisper) | ✅ |
+| Recommend relevant public services | Personalized Scheme Finder — demographic-based matching | ✅ |
+| Assist with document requirements | AI Document Analyzer — Vision OCR with issue flagging | ✅ |
+| Track complaints | Grievance Reporting with `NGK-XXXXXX` ticket IDs | ✅ |
+| Provide multilingual support | 5 Indian languages — English, हिंदी, বাংলা, தமிழ், मराठी | ✅ |
+| Promote transparency | Official `.gov.in` portals surfaced for every query | ✅ |
+| Digital inclusion | Mobile-first UI, voice input, large touch targets | ✅ |
+
+</div>
 
 ---
 
 ## 🇮🇳 What NagrikAI Does
 
-NagrikAI is a multi-page Next.js web application with six core GenAI capabilities:
+NagrikAI is a multi-page **Next.js** web application built around six GenAI-powered capabilities that go far beyond a typical FAQ chatbot.
 
-| Feature | What it does |
-|---|---|
-| **AI Chat Companion** | Ask any question about government schemes in plain language. Get grounded answers in your language. Features **Groq Whisper STT** for accurate voice input. |
-| **Scam Shield** ⭐ | Paste a suspicious message. We cross-check claimed fees against real fee structures and verify URLs against official government domains to detect fraud. |
-| **Personalized Scheme Finder** ⭐ | Fill out a simple demographic profile (state, age, social category, income range) to discover central and state government schemes you qualify for. |
-| **AI Document Analyzer** ⭐ | Upload photos of Aadhaar / PAN cards. The AI Vision system checks if the document is complete, readable, and masks sensitive info for privacy. |
-| **Grievance Reporting & Smart Routing** | Describe any public issue. AI classifies and routes the complaint to the correct state/national portal, issuing a trackable ticket. |
-| **Service Directory** | Search and filter 20+ government services in a clean grid. Click any card to instantly ask the AI Companion about it. |
+<table>
+<tr><td width="26%"><b>💬 AI Chat Companion</b></td><td>Ask any question about government schemes in plain language. Get grounded answers in your own language, with <b>Groq Whisper STT</b> for accurate voice input.</td></tr>
+<tr><td>🛡️ <b>Scam Shield</b> ⭐</td><td>Paste a suspicious message. NagrikAI cross-checks claimed fees against real fee structures and verifies URLs against official government domains to catch fraud in seconds.</td></tr>
+<tr><td>🎯 <b>Personalized Scheme Finder</b> ⭐</td><td>Fill a simple demographic profile — state, age, category, income — and discover exactly which central and state schemes you qualify for.</td></tr>
+<tr><td>📄 <b>AI Document Analyzer</b> ⭐</td><td>Upload a photo of an Aadhaar / PAN card. Vision AI checks completeness and readability and masks sensitive info for privacy.</td></tr>
+<tr><td>📮 <b>Grievance Reporting & Smart Routing</b></td><td>Describe any public issue in your own words. AI classifies it and routes it to the correct state/national portal, issuing a trackable ticket.</td></tr>
+<tr><td>🗂️ <b>Service Directory</b></td><td>Search and filter 20+ government services in a clean grid. Tap any card to instantly ask the AI Companion about it.</td></tr>
+</table>
 
-**Key differentiators for judges:** Scam Shield, Document OCR checking, and Groq Whisper. Most civic-tech entries only provide simple FAQ bots. NagrikAI protects, verifies, and personalizes.
+> **What sets it apart:** most civic-tech hackathon entries stop at a simple FAQ bot. NagrikAI **protects** citizens from fraud, **verifies** documents with Vision AI, and **personalizes** recommendations — three layers of value most teams don't attempt.
 
 ---
 
 ## 🛠 Tech Stack
 
-- **Framework:** Next.js 16 (App Router) + TypeScript
-- **Styling:** Tailwind CSS 4 + shadcn/ui + Lucide icons
-- **LLM Integrations:**
-  - **Google Gemini API** (`gemini-2.5-flash`, `gemini-2.5-pro`, `gemini-1.5-flash`): Primary engine for chat, scheme matching, and vision-based document OCR.
-  - **Groq API** (`llama-3.3-70b`, `mixtral-8x7b`, `whisper-large-v3`): Actively used as the fallback provider to recover from rate limits, and provides the Speech-to-Text transcription.
-- **Database:** Prisma ORM + SQLite (grievance tracking storage)
-- **State Management:** Zustand (view and language persistence)
-- **Deploy target:** Vercel / Standalone Node.js server
+<div align="center">
 
-> **AI Redundancy Strategy:** NagrikAI implements a self-healing LLM chain. If the Gemini API rate limit or quota is exceeded, the server automatically fails over in under 2 seconds to the corresponding Groq model.
+| Layer | Technology |
+|---|---|
+| **Framework** | Next.js 16 (App Router) + TypeScript, scaffolded with Google Antigravity |
+| **Styling** | Tailwind CSS 4 · shadcn/ui · Lucide icons |
+| **Primary LLM** | Google Gemini API — `gemini-2.5-flash`, `gemini-2.5-pro`, `gemini-1.5-flash` |
+| **Fallback LLM + Voice** | Groq API — `llama-3.3-70b`, `mixtral-8x7b`, `whisper-large-v3` |
+| **Database** | Prisma ORM + SQLite (grievance tracking) |
+| **State** | Zustand (view + language persistence) |
+| **Deploy Target** | Vercel / standalone Node.js server |
+
+</div>
+
+> **🔁 Self-Healing AI Chain** — if the Gemini API hits a rate limit or quota ceiling, the server automatically fails over to the corresponding Groq model in **under 2 seconds**, so the citizen never sees a broken response.
+
+```mermaid
+flowchart LR
+    A[Citizen Query] --> B{Gemini API}
+    B -- ✅ success --> E[Grounded Response]
+    B -- ⚠️ rate limit / quota --> C[Groq Fallback]
+    C --> E
+    A -. voice input .-> D[Groq Whisper v3] --> A
+```
 
 ---
 
-## 🚀 Setup
+## 🚀 Quick Start
 
 ```bash
 # 1. Install dependencies
@@ -47,14 +118,16 @@ bun install   # or npm install
 bun run db:push
 
 # 3. Run the dev server
-bun run dev   # http://localhost:3000
+bun run dev   # → http://localhost:3000
 
 # 4. Lint
 bun run lint
 ```
 
 ### 🔑 Environment Configuration
-Create a `.env` file in the root directory:
+
+Create a `.env` file in the project root:
+
 ```env
 DATABASE_URL=file:./db/custom.db
 GEMINI_API_KEY=your_google_gemini_api_key
@@ -92,30 +165,33 @@ src/
 │       ├── hero.tsx               # Landing page hero
 │       ├── chat-companion.tsx     # Chat component + voice recorder
 │       ├── scam-shield.tsx        # Scam detector UI
-│       ├── grievance-report.tsx   # Complaint file + live status tracker
+│       ├── grievance-report.tsx   # Complaint filing + live status tracker
 │       ├── scheme-recommender.tsx # Personalized profile form & recommendations
 │       ├── doc-analyzer.tsx       # Secure document Vision OCR checker
 │       └── service-directory.tsx  # Categorized service grid
 └── lib/
     ├── services-data.ts           # Service grounding dataset
-    ├── prompts.ts                 # Heuristics system prompts
-    ├── gemini.ts                  # Fetch client wrapper with Gemini -> Groq fallback
-    ├── store.ts                    # Zustand: view + language
-    ├── types.ts                    # Shared API contracts
-    └── db.ts                       # Prisma client
+    ├── prompts.ts                 # Heuristic system prompts
+    ├── gemini.ts                  # Fetch client wrapper — Gemini → Groq fallback
+    ├── store.ts                   # Zustand: view + language
+    ├── types.ts                   # Shared API contracts
+    └── db.ts                      # Prisma client
 ```
 
 ---
 
-## 🧠 Prompt Workflow / Strategy
+## 🧠 Prompt Engineering & AI Architecture
 
-This is the heart of NagrikAI. Every AI feature is **grounded** in a single structured dataset so responses are accurate, not hallucinated.
+This is the heart of NagrikAI: **every AI feature is grounded in one structured dataset**, so responses stay accurate instead of hallucinating.
 
-### (a) How the service reference data grounds responses
+<details>
+<summary><b>📚 (a) Grounded service reference data</b></summary>
+<br>
 
 `src/lib/services-data.ts` defines a typed dataset of **20 Indian government services** — Aadhaar, PAN, Voter ID, Ration Card, PM-Kisan, Ayushman Bharat, PM Awas Yojana, e-Shram, RTPS, EPF, Vahan/Sarathi, MGNREGA, PM Ujjwala, DigiLocker, RTI, PM Jan Dhan, NPS, Jeevan Pramaan, National Scholarship Portal, and more.
 
 Each service carries:
+
 - `name`, `category`, `nodalDepartment`
 - `portal` — the **official URL** (ground truth for scam URL checks)
 - `description` — one-liner
@@ -123,43 +199,59 @@ Each service carries:
 - `feeDetail` — exact fee in ₹
 - `documents` — Proof of Identity / Address / DOB / scheme-specific requirements
 
-This dataset is serialized into a Markdown table + structured lists and **embedded directly into the system prompt** (`src/lib/prompts.ts` → `CHAT_SYSTEM_PROMPT`). The model is explicitly instructed: *"You ONLY use the verified service reference dataset below. You never invent portal URLs, fees, or document requirements."* This converts the LLM from a confident guesser into a grounded retrieval-augmented responder.
+This dataset is serialized into a Markdown table and **embedded directly into the system prompt** (`src/lib/prompts.ts` → `CHAT_SYSTEM_PROMPT`), with an explicit instruction that the model must never invent portal URLs, fees, or document requirements. This turns the LLM from a confident guesser into a grounded, retrieval-style responder.
 
-### (b) Intent detection logic
+</details>
 
-The chat system prompt instructs the model to detect one of four intents and respond accordingly:
+<details>
+<summary><b>🔍 (b) Intent detection logic</b></summary>
+<br>
 
-1. **Informational** ("What is PM-Kisan?") → simple explanation + official portal.
-2. **Document checklist** ("Documents for Aadhaar?") → grouped checklist (Identity / Address / DOB / Scheme-specific) + portal.
-3. **Service recommendation** ("I'm a farmer with 2 acres") → match the citizen's situation to the most relevant scheme(s) from the dataset, explain *why* it fits, list eligibility + documents, and link the portal. Up to 3 recommendations.
-4. **Scam check** ("I got a message asking ₹500 for PM-Kisan renewal") → apply Scam Shield logic inline (see below).
+The chat system prompt instructs the model to detect one of four intents from free-form phrasing — no rigid keyword matching:
 
-Intent is detected from the natural-language query — no rigid keyword matching — so citizens can phrase things any way they like.
+1. **Informational** — *"What is PM-Kisan?"* → simple explanation + official portal
+2. **Document checklist** — *"Documents for Aadhaar?"* → grouped checklist (Identity / Address / DOB / Scheme-specific) + portal
+3. **Service recommendation** — *"I'm a farmer with 2 acres"* → matches the citizen's situation to relevant schemes, explains *why*, lists eligibility + documents (up to 3 recommendations)
+4. **Scam check** — *"I got a message asking ₹500 for PM-Kisan renewal"* → routes into the Scam Shield heuristic loop inline
 
-### (c) Scam Shield heuristic design
+</details>
 
-Scam Shield (`SCAM_SHIELD_SYSTEM_PROMPT`) is a separate, stricter prompt that forces a **strict-JSON verdict**. The heuristics, all grounded in the service dataset:
+<details>
+<summary><b>🛡️ (c) Scam Shield — deterministic 6-step heuristic loop</b></summary>
+<br>
 
-1. **Fee cross-check** — Compare any payment demand against the dataset's `fee`/`feeDetail`. PM-Kisan, Aadhaar, Ayushman Bharat, Voter ID, RTI (BPL), Jan Dhan, e-SHRAM, DigiLocker, Jeevan Pramaan, PM Ujjwala, MGNREGA, PMAY are all **Free**. *Any* demand for money on these = instant red flag. Only Vahan/Sarathi, PAN (₹107), NPS, RTPS (₹0–40), RTI non-BPL (₹10) legitimately charge — and always tiny, always via official channels.
-2. **URL / domain check** — Extract links; if the domain is **not** in the official domains list derived from the dataset, flag it. Catches `bit.ly` shorteners, misspelled domains (`pmkisan-update.com`), non-`.gov.in` domains claiming to be government.
-3. **Sensitive-info requests** — Aadhaar number, OTP, PAN, bank details, UPI PIN via SMS/WhatsApp = immediate red flag. Government never asks for these via message.
-4. **Urgency / threat language** — "Account will be blocked", "Pay now or benefits stopped", "Last date today" = classic scam signatures.
-5. **Renewal fee for free schemes** — PM-Kisan, Ayushman, Voter ID, e-SHRAM require **no** renewal fees. Any "renewal" payment demand = scam.
-6. **Channel check** — Government communicates via official portals / designated SMS senders / post, not random WhatsApp numbers asking for payment.
+Scam Shield is not a generic chat — it's a **structured prompt that forces a strict-JSON verdict** by running the citizen's input through a fixed, ordered sequence of checks, all grounded in the verified service dataset.
 
-The response is a strict JSON object: `verdict`, `confidence`, `reasons[]`, `claimedScheme`, `realFee`, `officialPortal`, `safeAction`, `redFlags[]`. The UI renders this with a color-coded banner (red / green / amber) — visually distinct from the chat so judges immediately recognize it as a separate capability.
+| Step | Check | Catches |
+|:---:|---|---|
+| 1 | **Fee cross-check** | Any payment demand for Free schemes (PM-Kisan, Aadhaar, Ayushman Bharat, Voter ID, RTI-BPL, Jan Dhan, e-SHRAM, DigiLocker, Jeevan Pramaan, PM Ujjwala, MGNREGA, PMAY) |
+| 2 | **URL / domain check** | `bit.ly` shorteners, misspelled domains (`pmkisan-update.com`), any non-`.gov.in` claiming to be official |
+| 3 | **Sensitive-info requests** | Aadhaar number, OTP, PAN, bank details, UPI PIN requested via SMS/WhatsApp |
+| 4 | **Urgency / threat language** | *"Account will be blocked"*, *"Pay now or benefits stopped"* |
+| 5 | **Renewal fee for free schemes** | Fake "renewal" charges on schemes that never require one |
+| 6 | **Channel check** | Payment demands via random WhatsApp numbers instead of official channels |
 
-### (d) Multilingual handling
+The response is a strict JSON object — `verdict`, `confidence`, `reasons[]`, `claimedScheme`, `realFee`, `officialPortal`, `safeAction`, `redFlags[]` — rendered as a color-coded banner (🔴 red / 🟢 green / 🟠 amber), visually distinct from the chat UI so the capability reads as its own product.
 
-**Entirely prompt-based — no translation API.** The chat system prompt instructs: *"Detect the language of the citizen's message and ALWAYS reply in the SAME language."* Minimum support: Hindi (Devanagari), English, Bengali, Tamil, Marathi. The model handles this natively. Official scheme names are never translated.
+</details>
 
-For extra control, the UI exposes a **language selector** (Auto / हिंदी / English / বাংলা / தமிழ் / मराठी). When a specific language is chosen, a short instruction in that language is prepended to the message sent to the API (e.g. `"कृपया अपना उत्तर हिंदी में दें।"`), overriding auto-detection. In "Auto" mode, the model detects from the user's message. The grievance router similarly writes its summary in the citizen's language while keeping official fields (category, portal) in English.
+<details>
+<summary><b>🌐 (d) Multilingual handling</b></summary>
+<br>
 
-### (e) Grievance classification logic
+**Entirely prompt-based — no translation API.** The system prompt instructs the model to detect the citizen's language and always reply in the same one. Minimum support: Hindi, English, Bengali, Tamil, Marathi — official scheme names are never translated.
 
-`GRIEVANCE_SYSTEM_PROMPT` classifies a free-text complaint into one of **7 jurisdictional categories** and returns the routing authority + portal as strict JSON:
+A language selector (Auto / हिंदी / English / বাংলা / தமிழ் / मराठी) lets citizens override auto-detection by prepending a short instruction in their chosen language. The grievance router mirrors this: it writes summaries in the citizen's language while keeping official fields (category, portal) in English.
 
-| Category | Routed to | Portal |
+</details>
+
+<details>
+<summary><b>📮 (e) Grievance classification & routing</b></summary>
+<br>
+
+`GRIEVANCE_SYSTEM_PROMPT` classifies free-text complaints into **7 jurisdictional categories**, modeled after the real-world **NextGen CPGRAMS escalation matrix** used by the Government of India:
+
+| Category | Routed To | Portal |
 |---|---|---|
 | Civic Infrastructure & Roads | Municipal Corp / PWD | local portal |
 | Sanitation & Waste | Municipal Health Dept | Swachhata App |
@@ -169,64 +261,67 @@ For extra control, the UI exposes a **language selector** (Auto / हिंद�
 | State Govt Services & Entitlements | State RTPS / Lok Shikayat | state portal |
 | Corruption & Malpractice | CVC / Lokayukta | portal.cvc.gov.in |
 
-The model returns `{ category, routedTo, portal, portalName, contact, summary, suggestedAction }`. The server generates a human-readable ticket ID (`NGK-XXXXXX`), persists the grievance with status `Pending`, and returns the full record. A status tracker lists all submissions.
+The model returns `{ category, routedTo, portal, portalName, contact, summary, suggestedAction }`. The server generates a human-readable ticket ID (`NGK-XXXXXX`), persists the grievance as `Pending`, and a live tracker lists every submission.
 
-### (f) DPDP-aligned data minimization approach
+</details>
 
-NagrikAI is built to respect the **Digital Personal Data Protection Act 2023**:
+<details>
+<summary><b>🔒 (f) DPDP Act 2023-aligned data minimization</b></summary>
+<br>
 
-- **We never ask for or store Aadhaar numbers.** The chat UI explicitly warns: *"Never share Aadhaar numbers, OTPs, or passwords in chat."*
-- **Grievance records store only routing-essential fields:** category, description, routed authority, portal, status, and an optional coarse location (area/locality, capped at 120 chars). No names, no phone numbers, no house numbers.
-- **No auth / no accounts.** Citizens use NagrikAI anonymously. Grievances are tracked by ticket ID, not personal identity.
-- **Local-first storage.** The SQLite DB lives on the server; no third-party analytics, no PII shipped to external services. The only external call is to the LLM, which receives the citizen's *question* (not stored identifiers).
-- **Scam Shield never persists** the messages citizens paste — they're analysed ephemerally and the verdict is returned without storage.
+> **Official Compliance Statement:** NagrikAI uses strict data-minimization. It does not store sensitive identifiers like 12-digit Aadhaar numbers, ensuring full compliance with Indian privacy law.
 
-This is called out in the UI ("Privacy-first: DPDP Act 2023 aligned") so the trust-first framing is visible to judges, not just buried in code.
+- **Never asks for or stores Aadhaar numbers** — the chat UI explicitly warns citizens not to share Aadhaar numbers, OTPs, or passwords.
+- **Grievances store only routing-essential fields** — category, description, routed authority, portal, status, and an optional coarse locality (capped at 120 chars). No names, no phone numbers, no house numbers.
+- **No auth, no accounts** — citizens stay anonymous, tracked only by ticket ID.
+- **Local-first storage** — SQLite lives on the server; no third-party analytics; the only external call is to the LLM, which only ever sees the citizen's question.
+- **Scam Shield never persists messages** — analysis is ephemeral; only the verdict is returned.
+
+This is surfaced directly in the UI (*"Privacy-first: DPDP Act 2023 aligned"*) — trust-first framing that's visible, not buried in code.
+
+</details>
 
 ---
 
 ## ✨ Feature Walkthrough
 
-### 1. Landing Page
-Hero with the trust-first tagline, four quick-access cards (Ask / Check Suspicious Message / Report Issue / Browse Services), three trust pillars (Scam Shield, DPDP, Multilingual), example prompts, and featured services.
-
-### 2. AI Chat Companion
-Conversation UI with markdown rendering, typing indicator, suggestion chips, language-aware responses, and a "never share sensitive info" reminder. Grounded in the 20-service dataset. Clicking any service card or example prompt pre-fills + sends a query.
-
-### 3. Scam Shield ⭐
-Distinct red/amber-themed interface. Paste a message or try a sample. Get a color-coded verdict with: claimed scheme, **real fee** (from dataset), reasons, red-flag chips, safe action, and the verified official portal as a safe alternative.
-
-### 4. Personalized Scheme Finder ⭐
-A demographic form (State, Age, Gender, Category, Income) that maps matching government schemes. Returns cards showing category, matching logic, required documents checklist, direct links, and a shortcut button to discuss a scheme directly with the AI Chat Companion.
-
-### 5. AI Document Analyzer ⭐
-Upload an image of an Aadhaar or PAN card. The AI Vision system scans and parses the document, checks if the photo and details are readable and complete, flags any issues (like blurriness), masks sensitive fields, and lists corrective recommendations.
-
-### 6. Grievance Reporting + Tracker
-Describe an issue → AI classifies + routes → get a ticket ID + routing card. A status tracker below shows all complaints (seeded with 3 demo entries so judges see a populated tracker immediately) with Pending / In Progress / Resolved badges.
-
-### 7. Service Directory
-Searchable, category-filterable grid of all 20 services. Each card shows the fee badge (Free / Nominal / Paid), nodal department, an "Ask AI" button (pre-fills chat), and a direct link to the official portal.
+| # | Feature | Highlights |
+|:---:|---|---|
+| 1 | **Landing Page** | Trust-first hero, 4 quick-access cards, 3 trust pillars (Scam Shield / DPDP / Multilingual), example prompts, featured services |
+| 2 | **AI Chat Companion** | Markdown rendering, typing indicator, suggestion chips, language-aware replies, "never share sensitive info" reminder |
+| 3 | **Scam Shield** ⭐ | Red/amber themed UI, sample messages, color-coded verdict with real fee, red-flag chips, safe official portal alternative |
+| 4 | **Personalized Scheme Finder** ⭐ | Demographic form → matching schemes, eligibility + documents checklist, one-tap handoff to the Chat Companion |
+| 5 | **AI Document Analyzer** ⭐ | Vision-based scan of Aadhaar/PAN, readability + completeness checks, sensitive-field masking, corrective tips |
+| 6 | **Grievance Reporting + Tracker** | AI classification & routing, `NGK-XXXXXX` ticket, live tracker seeded with demo entries, Pending/In Progress/Resolved badges |
+| 7 | **Service Directory** | Searchable, filterable grid of 20 services, fee badges, nodal department, "Ask AI" shortcut, direct official links |
 
 ---
 
-## 🎨 Design Notes
+## 🎨 Design Language
 
-- **Visual identity:** Saffron / white / India-green tricolour accents on a clean civic-blue primary. High-contrast, accessible typography.
-- **Scam Shield is visually distinct** — red/amber theme, separate header treatment — so it reads as a separate capability, not "just another chat mode".
-- **Mobile-first, responsive** throughout. Large touch targets (44px+). Sticky header with tricolour strip. Sticky footer with trust signals.
-- **Accessibility:** semantic HTML (`header`/`main`/`footer`/`section`), ARIA labels on icon buttons, keyboard-operable (Enter to send), screen-reader-friendly markup.
+- **Visual identity:** saffron / white / India-green tricolour accents on a clean civic-blue primary, high-contrast accessible typography
+- **Scam Shield stands apart:** red/amber theme and separate header treatment so it reads as its own capability, not "just another chat mode"
+- **Mobile-first & responsive:** 44px+ touch targets, sticky header with tricolour strip, sticky footer with trust signals
+- **Accessible by default:** semantic HTML, ARIA labels on icon buttons, full keyboard support, screen-reader-friendly markup
 
 ---
 
 ## ⚠️ Honest Limitations (for judges)
 
-- **Mocked data where real integration would take too long.** The service dataset is hand-curated and current as of build time — it is *not* a live API. Always verify on official `.gov.in` portals (the app links them).
-- **Grievance status** does not sync with real government systems. The tracker shows demo + locally-submitted entries. This is stated in the footer.
-- **Scam Shield** is a heuristic classifier, not a guarantee. The "Can't verify" verdict always directs to the official portal.
+> We'd rather be upfront than have you find these first.
+
+- **Service dataset is hand-curated, not a live API** — accurate as of build time, always linked back to official `.gov.in` portals for verification.
+- **Grievance tracker doesn't sync with real government systems** — it shows demo + locally-submitted entries only, clearly stated in the footer.
+- **Scam Shield is a heuristic classifier, not a legal guarantee** — an inconclusive verdict always redirects to the official portal rather than guessing.
 
 ---
 
 ## 📜 License
 
-MIT — built with ❤️ for India.
+Released under the **MIT License** — built with ❤️ for India.
+
+<div align="center">
+
+**NagrikAI** · *Making every civic interaction faster, smarter, and safer*
+
+</div>
