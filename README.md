@@ -7,29 +7,33 @@
 
 ## 🇮🇳 What NagrikAI Does
 
-NagrikAI is a single-page web app with four core capabilities, all powered by one grounded AI model (Gemini-class LLM via the z-ai SDK):
+NagrikAI is a multi-page Next.js web application with six core GenAI capabilities:
 
 | Feature | What it does |
 |---|---|
-| **AI Chat Companion** | Ask any question about 20+ government schemes in plain language. Get grounded answers on eligibility, documents, fees, and the **official portal** — in your own language. |
-| **Scam Shield** ⭐ | Paste a suspicious SMS / WhatsApp / link. We cross-check claimed fees against the **real** fee structure and verify URLs against **official `.gov.in` domains** to give a clear verdict: ⚠️ Likely Scam / ✅ Legitimate / ❓ Can't verify. |
-| **Grievance Reporting + Smart Routing** | Describe a public issue in natural language. AI classifies it and routes it to the correct jurisdictional authority + portal. Track status with a ticket ID. |
-| **Service Directory** | Browse 20 services in a clean, categorized (UMANG-inspired) grid. Click any service to ask the AI about it. |
+| **AI Chat Companion** | Ask any question about government schemes in plain language. Get grounded answers in your language. Features **Groq Whisper STT** for accurate voice input. |
+| **Scam Shield** ⭐ | Paste a suspicious message. We cross-check claimed fees against real fee structures and verify URLs against official government domains to detect fraud. |
+| **Personalized Scheme Finder** ⭐ | Fill out a simple demographic profile (state, age, social category, income range) to discover central and state government schemes you qualify for. |
+| **AI Document Analyzer** ⭐ | Upload photos of Aadhaar / PAN cards. The AI Vision system checks if the document is complete, readable, and masks sensitive info for privacy. |
+| **Grievance Reporting & Smart Routing** | Describe any public issue. AI classifies and routes the complaint to the correct state/national portal, issuing a trackable ticket. |
+| **Service Directory** | Search and filter 20+ government services in a clean grid. Click any card to instantly ask the AI Companion about it. |
 
-**The differentiator judges should remember:** Scam Shield. Most civic-tech entries just answer questions. NagrikAI additionally *protects* you.
+**Key differentiators for judges:** Scam Shield, Document OCR checking, and Groq Whisper. Most civic-tech entries only provide simple FAQ bots. NagrikAI protects, verifies, and personalizes.
 
 ---
 
 ## 🛠 Tech Stack
 
 - **Framework:** Next.js 16 (App Router) + TypeScript
-- **Styling:** Tailwind CSS 4 + shadcn/ui (New York) + Lucide icons
-- **AI:** `z-ai-web-dev-sdk` (Gemini-class chat completions) — server-side only
-- **Database:** Prisma ORM + SQLite (grievance tracking)
-- **State:** Zustand (view + language)
-- **Deploy target:** Vercel (single repo, single deploy)
+- **Styling:** Tailwind CSS 4 + shadcn/ui + Lucide icons
+- **LLM Integrations:**
+  - **Google Gemini API** (`gemini-2.5-flash`, `gemini-2.5-pro`, `gemini-1.5-flash`): Primary engine for chat, scheme matching, and vision-based document OCR.
+  - **Groq API** (`llama-3.3-70b`, `mixtral-8x7b`, `whisper-large-v3`): Actively used as the fallback provider to recover from rate limits, and provides the Speech-to-Text transcription.
+- **Database:** Prisma ORM + SQLite (grievance tracking storage)
+- **State Management:** Zustand (view and language persistence)
+- **Deploy target:** Vercel / Standalone Node.js server
 
-> **Note on AI provider:** The spec calls for Google Gemini API. This build uses the `z-ai-web-dev-sdk`, which exposes a Gemini-equivalent OpenAI-compatible `chat.completions` interface. The system prompts, grounding dataset, and heuristics are provider-agnostic — swapping in `@google/generative-ai` requires only changing the client wrapper in `src/lib/gemini.ts`.
+> **AI Redundancy Strategy:** NagrikAI implements a self-healing LLM chain. If the Gemini API rate limit or quota is exceeded, the server automatically fails over in under 2 seconds to the corresponding Groq model.
 
 ---
 
@@ -49,7 +53,13 @@ bun run dev   # http://localhost:3000
 bun run lint
 ```
 
-No external API keys are required — the `z-ai-web-dev-sdk` is pre-provisioned in this environment. For a standalone Vercel deploy, provide the SDK's auth via environment variables and replace the client init in `src/lib/gemini.ts` if needed.
+### 🔑 Environment Configuration
+Create a `.env` file in the root directory:
+```env
+DATABASE_URL=file:./db/custom.db
+GEMINI_API_KEY=your_google_gemini_api_key
+GROQ_API_KEY=your_groq_api_key
+```
 
 ---
 
@@ -60,25 +70,36 @@ src/
 ├── app/
 │   ├── api/
 │   │   ├── chat/route.ts          # AI Chat Companion endpoint
-│   │   ├── scam-check/route.ts     # Scam Shield endpoint (returns JSON verdict)
-│   │   └── grievance/route.ts      # POST (classify+create) / GET (list tracker)
-│   ├── globals.css                 # Civic theme (saffron / navy / india-green)
+│   │   ├── stt/route.ts           # Speech-to-Text transcription (Groq Whisper v3)
+│   │   ├── recommend/route.ts     # Personalized Scheme Recommender endpoint
+│   │   ├── doc-analyze/route.ts   # Document analysis (Gemini Vision OCR)
+│   │   ├── scam-check/route.ts    # Scam Shield endpoint (returns JSON verdict)
+│   │   └── grievance/route.ts     # POST (classify+create) / GET (list tracker)
+│   ├── chat/
+│   ├── docs/                      # AI Document Analyzer page
+│   ├── grievance/
+│   ├── scam/
+│   ├── schemes/                   # Personalized Scheme Finder page
+│   ├── services/
+│   ├── globals.css                # Custom OKLCH palette (instrument fonts)
 │   ├── layout.tsx
-│   └── page.tsx                    # Single-route shell with view switching
+│   └── page.tsx
 ├── components/
-│   ├── ui/                         # shadcn/ui primitives
+│   ├── ui/                        # shadcn/ui primitives
 │   └── nagrik/
-│       ├── header.tsx              # Nav + language selector
-│       ├── footer.tsx              # Sticky footer (trust signals)
-│       ├── hero.tsx                # Landing page
-│       ├── chat-companion.tsx      # ⭐ Primary feature
-│       ├── scam-shield.tsx         # ⭐ Key differentiator
-│       ├── grievance-report.tsx    # Submit + status tracker
-│       └── service-directory.tsx   # Categorized grid
+│       ├── header.tsx             # Nav bar + active language selector
+│       ├── footer.tsx             # Responsive footer
+│       ├── hero.tsx               # Landing page hero
+│       ├── chat-companion.tsx     # Chat component + voice recorder
+│       ├── scam-shield.tsx        # Scam detector UI
+│       ├── grievance-report.tsx   # Complaint file + live status tracker
+│       ├── scheme-recommender.tsx # Personalized profile form & recommendations
+│       ├── doc-analyzer.tsx       # Secure document Vision OCR checker
+│       └── service-directory.tsx  # Categorized service grid
 └── lib/
-    ├── services-data.ts            # ⭐ The grounding dataset (20 services)
-    ├── prompts.ts                  # ⭐ System prompts (chat / scam / grievance)
-    ├── gemini.ts                   # z-ai SDK wrapper (server-only)
+    ├── services-data.ts           # Service grounding dataset
+    ├── prompts.ts                 # Heuristics system prompts
+    ├── gemini.ts                  # Fetch client wrapper with Gemini -> Groq fallback
     ├── store.ts                    # Zustand: view + language
     ├── types.ts                    # Shared API contracts
     └── db.ts                       # Prisma client
@@ -175,10 +196,16 @@ Conversation UI with markdown rendering, typing indicator, suggestion chips, lan
 ### 3. Scam Shield ⭐
 Distinct red/amber-themed interface. Paste a message or try a sample. Get a color-coded verdict with: claimed scheme, **real fee** (from dataset), reasons, red-flag chips, safe action, and the verified official portal as a safe alternative.
 
-### 4. Grievance Reporting + Tracker
+### 4. Personalized Scheme Finder ⭐
+A demographic form (State, Age, Gender, Category, Income) that maps matching government schemes. Returns cards showing category, matching logic, required documents checklist, direct links, and a shortcut button to discuss a scheme directly with the AI Chat Companion.
+
+### 5. AI Document Analyzer ⭐
+Upload an image of an Aadhaar or PAN card. The AI Vision system scans and parses the document, checks if the photo and details are readable and complete, flags any issues (like blurriness), masks sensitive fields, and lists corrective recommendations.
+
+### 6. Grievance Reporting + Tracker
 Describe an issue → AI classifies + routes → get a ticket ID + routing card. A status tracker below shows all complaints (seeded with 3 demo entries so judges see a populated tracker immediately) with Pending / In Progress / Resolved badges.
 
-### 5. Service Directory
+### 7. Service Directory
 Searchable, category-filterable grid of all 20 services. Each card shows the fee badge (Free / Nominal / Paid), nodal department, an "Ask AI" button (pre-fills chat), and a direct link to the official portal.
 
 ---
