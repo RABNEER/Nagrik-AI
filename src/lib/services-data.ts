@@ -217,7 +217,7 @@ export const GOVT_SERVICES: GovtService[] = [
   {
     id: "pm-ujjwala",
     name: "PM Ujjwala Yojana",
-    category: "Agriculture",
+    category: "Welfare & Financial Support",
     nodalDepartment: "Ministry of Petroleum & Natural Gas",
     portal: "https://www.pmuy.gov.in",
     description: "Free LPG connection to women from BPL households with first refill & stove.",

@@ -59,6 +59,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Call Gemini 1.5 Flash Vision API directly
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
     const res = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`,
       {
@@ -84,6 +86,7 @@ export async function POST(req: NextRequest) {
         }),
       }
     );
+    clearTimeout(timeoutId);
 
     const data = await res.json();
     if (!res.ok) {

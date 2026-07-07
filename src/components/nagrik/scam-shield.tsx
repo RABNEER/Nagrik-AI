@@ -70,8 +70,9 @@ export function ScamShield() {
     setVerdict(null);
   }
 
-  const isScam = verdict?.verdict.includes("Likely Scam") || verdict?.verdict.includes("घोटाला");
-  const isLegit = verdict?.verdict.includes("Legitimate") || verdict?.verdict.includes("आधिकारिक");
+  const v = verdict?.verdict ?? "";
+  const isScam = v.includes("⚠️") || v.includes("Likely Scam") || v.includes("घोटाला") || v.includes("স্ক্যাম") || v.includes("மோசடி") || v.includes("फसवणूक");
+  const isLegit = v.includes("✅") || v.includes("Legitimate") || v.includes("आधिकारिक") || v.includes("আইনি") || v.includes("சட்டப்பூர்வ") || v.includes("वैध");
   const isUnsure = verdict && !isScam && !isLegit;
 
   return (

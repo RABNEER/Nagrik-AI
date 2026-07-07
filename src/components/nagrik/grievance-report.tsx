@@ -12,7 +12,7 @@ const EXAMPLES = [
   "Streetlight near my house has been broken for 2 weeks and it's unsafe at night",
   "Water supply in our area is contaminated and muddy for the past week",
   "Electricity goes out every evening for 3 hours, no one is fixing it",
-  "The ration shop dealer demands extra money grain grains that should be free",
+  "The ration shop dealer demands extra money for grains that should be free",
 ];
 
 export function GrievanceReport() {
@@ -22,27 +22,33 @@ export function GrievanceReport() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<GrievanceRecord | null>(null);
   const [grievances, setGrievances] = useState<GrievanceRecord[]>([]);
-  const [loadingList, setLoadingList] = useState(false);
+  const [loadingList, setLoadingList] = useState(true);
   const { t } = useTranslation();
   const lang = useApp((s) => s.lang);
 
-  const fetchGrievances = useCallback(async () => {
-    setLoadingList(true);
-    try {
-      const res = await fetch("/api/grievance");
-      if (!res.ok) throw new Error("Failed to load grievances");
-      const data = await res.json();
-      setGrievances(data.grievances);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoadingList(false);
-    }
-  }, []);
-
   useEffect(() => {
-    void fetchGrievances();
-  }, [fetchGrievances]);
+    let ignore = false;
+    fetch("/api/grievance")
+      .then((r) => {
+        if (!r.ok) throw new Error("Failed to load grievances");
+        return r.json();
+      })
+      .then((data) => {
+        if (!ignore) {
+          setGrievances(data.grievances);
+          setLoadingList(false);
+        }
+      })
+      .catch((err) => {
+        if (!ignore) {
+          console.error(err);
+          setLoadingList(false);
+        }
+      });
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   async function submit(text?: string) {
     const desc = (text ?? description).trim();

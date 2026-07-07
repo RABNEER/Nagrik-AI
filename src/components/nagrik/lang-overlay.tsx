@@ -22,19 +22,16 @@ const OPTIONS: LangOption[] = [
 
 export function LanguageOverlay() {
   const { lang, setLang } = useApp();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const selected = localStorage.getItem("nagrik-lang-selected");
+    return !selected;
+  });
 
   useEffect(() => {
-    // Check if the user has already completed language selection
-    const selected = localStorage.getItem("nagrik-lang-selected");
-    if (!selected) {
-      setIsOpen(true);
-    } else {
-      // Sync lang with store from localStorage if it exists
-      const savedLang = localStorage.getItem("nagrik-lang");
-      if (savedLang) {
-        setLang(savedLang as Lang);
-      }
+    const savedLang = localStorage.getItem("nagrik-lang");
+    if (savedLang) {
+      setLang(savedLang as Lang);
     }
   }, [setLang]);
 

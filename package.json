@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000 2>&1 | tee dev.log",
-    "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
+    "build": "next build && robocopy .next/static .next/standalone/.next/static /E /NFL /NDL /NJH /NJS /nc /ns /np >nul 2>&1 & if %errorlevel% leq 7 robocopy public .next/standalone/public /E /NFL /NDL /NJH /NJS /nc /ns /np >nul 2>&1",
     "start": "NODE_ENV=production bun .next/standalone/server.js 2>&1 | tee server.log",
     "lint": "eslint .",
     "db:push": "prisma db push",

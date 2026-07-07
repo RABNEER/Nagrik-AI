@@ -3,7 +3,7 @@
 import { useApp } from "@/lib/store";
 import { GOVT_SERVICES } from "@/lib/services-data";
 import { MessageSquare, ShieldCheck, FileText, ArrowRight, ShieldCheck as ShieldCheckIcon, Globe, Lock } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { AnimatedSphere } from "./animated-sphere";
@@ -11,12 +11,9 @@ import { useTranslation } from "@/lib/translations";
 
 export function Hero() {
   const { goChatWith } = useApp();
-  const [animatedTitle, setAnimatedTitle] = useState<React.ReactNode[]>([]);
-  const { t } = useTranslation();
-
-  useEffect(() => {
+  const [animatedTitle] = useState<React.ReactNode[]>(() => {
     const text = "NagrikAI";
-    const letters = Array.from(text).map((char, i) => (
+    return Array.from(text).map((char, i) => (
       <span
         key={i}
         className="inline-block opacity-0 animate-[char-reveal_0.45s_cubic-bezier(0.22,1,0.36,1)_forwards]"
@@ -25,8 +22,8 @@ export function Hero() {
         {char === " " ? "\u00A0" : char}
       </span>
     ));
-    setAnimatedTitle(letters);
-  }, []);
+  });
+  const { t } = useTranslation();
 
   // Popular services to preview on the landing page
   const featured = ["pm-kisan", "aadhaar", "ayushman-bharat", "pmay", "e-shram", "digilocker"]

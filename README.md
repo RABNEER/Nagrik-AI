@@ -100,6 +100,22 @@ Built for the **"Smart Bharat – AI-Powered Civic Companion"** hackathon challe
 
 ---
 
+## 🎯 Challenge Statement Alignment
+
+| Challenge Requirement | NagrikAI Feature | Status |
+|---|---|:---:|
+| Simplify complex government information | AI Chat Companion with grounded dataset | ✅ |
+| Answer citizen queries | Multi-turn conversational AI with voice (Groq Whisper) | ✅ |
+| Recommend relevant public services | Personalized Scheme Finder — demographic-based matching | ✅ |
+| Assist with document requirements | AI Document Analyzer — Vision OCR with issue flagging | ✅ |
+| Track complaints | Grievance Reporting with `NGK-XXXXXX` ticket IDs | ✅ |
+| Provide multilingual support | 5 Indian languages (English, हिंदी, বাংলা, தமிழ், मराठी) | ✅ |
+| Promote transparency | Official `.gov.in` portals surfaced for every query | ✅ |
+| Digital inclusion | Mobile-first UI, voice input, large touch targets | ✅ |
+
+---
+
+
 ## 🇮🇳 What NagrikAI Does
 
 NagrikAI is a multi-page **Next.js** web application built around six GenAI-powered capabilities that go far beyond a typical FAQ chatbot.
@@ -138,7 +154,7 @@ NagrikAI is a multi-page **Next.js** web application built around six GenAI-powe
 
 | Layer | Technology |
 |---|---|
-| **Framework** | Next.js 16 (App Router) + TypeScript, scaffolded with Google Antigravity |
+| **Framework** | Next.js 16 (App Router) + TypeScript |
 | **Styling** | Tailwind CSS 4 · shadcn/ui · Lucide icons |
 | **Primary LLM** | Google Gemini API — `gemini-2.5-flash`, `gemini-2.5-pro`, `gemini-1.5-flash` |
 | **Fallback LLM + Voice** | Groq API — `llama-3.3-70b`, `mixtral-8x7b`, `whisper-large-v3` |
@@ -245,7 +261,8 @@ src/
 │   │   ├── recommend/route.ts     # Personalized Scheme Recommender endpoint
 │   │   ├── doc-analyze/route.ts   # Document analysis (Gemini Vision OCR)
 │   │   ├── scam-check/route.ts    # Scam Shield endpoint (returns JSON verdict)
-│   │   └── grievance/route.ts     # POST (classify+create) / GET (list tracker)
+│   │   ├── grievance/route.ts     # POST (classify+create) / GET (list tracker)
+│   │   └── route.ts               # Root API health/redirect
 │   ├── chat/
 │   ├── docs/                      # AI Document Analyzer page
 │   ├── grievance/
@@ -266,13 +283,17 @@ src/
 │       ├── grievance-report.tsx   # Complaint filing + live status tracker
 │       ├── scheme-recommender.tsx # Personalized profile form & recommendations
 │       ├── doc-analyzer.tsx       # Secure document Vision OCR checker
-│       └── service-directory.tsx  # Categorized service grid
+│       ├── service-directory.tsx  # Categorized service grid
+│       ├── lang-overlay.tsx       # Language switcher overlay
+│       └── animated-sphere.tsx    # 3D hero background sphere
 └── lib/
     ├── services-data.ts           # Service grounding dataset
     ├── prompts.ts                 # Heuristic system prompts
     ├── gemini.ts                  # Fetch client wrapper — Gemini → Groq fallback
     ├── store.ts                   # Zustand: view + language
     ├── types.ts                   # Shared API contracts
+    ├── utils.ts                   # Shared utility helpers
+    ├── translations.ts            # UI string translations for 5 languages
     └── db.ts                      # Prisma client
 ```
 
