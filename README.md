@@ -156,7 +156,7 @@ NagrikAI is a multi-page **Next.js** web application built around six GenAI-powe
 |---|---|
 | **Framework** | Next.js 16 (App Router) + TypeScript |
 | **Styling** | Tailwind CSS 4 · shadcn/ui · Lucide icons |
-| **Primary LLM** | Google Gemini API — `gemini-2.5-flash`, `gemini-2.5-pro`, `gemini-1.5-flash` |
+| **Primary LLM** | Google Gemini API — `gemini-2.5-flash`, `gemini-2.5-pro`, `gemini-2.0-flash` |
 | **Fallback LLM + Voice** | Groq API — `llama-3.3-70b`, `mixtral-8x7b`, `whisper-large-v3` |
 | **Database** | Prisma ORM + SQLite (grievance tracking) |
 | **State** | Zustand (view + language persistence) |
